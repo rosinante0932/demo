@@ -1,0 +1,8 @@
+{
+  "welcome": "Welcome to Astro + Vue + UnoCSS + TanStack Query + SSR + i18n",
+  "intro": "This is the English home example.",
+  "about": "About",
+  "notFoundTitle": "not found title",
+  "notFoundMessage": "not found message",
+  "goHome": "go home"
+}

@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import QueryDemo from "../../components/QueryDemo.vue";
+import { t, resolveLocale, type Locale } from "../../lib/i18n";
+
+const locale: Locale = resolveLocale(Astro.currentLocale);
+const title = t(locale, "welcome");
+---
+
+<BaseLayout {title}>
+  <h1 class="text-3xl font-bold mb-2">{t(locale, "welcome")}</h1>
+  <p class="mb-4">{t(locale, "intro")}</p>
+  <div class="my-6">
+    <QueryDemo client:load />
+  </div>
+  <p class="mt-6">
+    <a href="/en/about/" class="text-blue-600 hover:underline"
+      >{t(locale, "about")}</a>
+  </p>
+</BaseLayout>

@@ -1,0 +1,25 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+const locales = ["zh", "en", "th"];
+
+// 去掉现有前缀，生成其他语言的同一路径
+const rawPath = Astro.url.pathname.replace(/^\/(zh|en|th)(\/|$)/, "");
+const links = locales.map((l) => ({
+  code: l,
+  href: getRelativeLocaleUrl(l, rawPath.replace(/^\//, "")),
+  label: l === "zh" ? "中文" : l === "en" ? "English" : "ไทย",
+}));
+---
+
+<div class="flex items-center gap-2">
+  {
+    links.map(({ code, href, label }) => (
+      <a
+        href={href}
+        class={`px-2 py-1 rounded hover:bg-gray-100 ${code === Astro.currentLocale ? "font-bold underline" : ""}`}
+      >
+        {label}
+      </a>
+    ))
+  }
+</div>

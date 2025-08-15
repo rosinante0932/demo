@@ -1,0 +1,8 @@
+{
+  "welcome": "欢迎使用 Astro + Vue + UnoCSS + TanStack Query + SSR + 多语言",
+  "intro": "这是中文首页示例。",
+  "about": "关于我们",
+  "notFoundTitle": "页面未找到",
+  "notFoundMessage": "抱歉，你访问的页面不存在。",
+  "goHome": "返回首页"
+}

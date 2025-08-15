@@ -1,0 +1,8 @@
+{
+  "welcome": "ยินดีต้อนรับสู่ Astro + Vue + UnoCSS + TanStack Query + SSR + หลายภาษา",
+  "intro": "นี่คือตัวอย่างหน้าแรกภาษาไทย",
+  "about": "เกี่ยวกับเรา",
+  "notFoundTitle": "not found title 泰语",
+  "notFoundMessage": "抱歉，你访问的页面不存在。泰语",
+  "goHome": "返回首页 泰语"
+}

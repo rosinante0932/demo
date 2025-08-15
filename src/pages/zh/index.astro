@@ -1,0 +1,49 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import QueryDemo from "@/components/QueryDemo.vue";
+import { t, resolveLocale, type Locale } from "../../lib/i18n";
+import SidebarToggle from "@/components/SidebarToggle.vue";
+import cat from "@/assets/cat.png";
+import { Image } from "astro:assets";
+
+const locale: Locale = resolveLocale(Astro.currentLocale);
+const title = t(locale, "welcome");
+let posts = {
+  ip: "192.168.0.1",
+};
+try {
+  const res = await fetch(`https://api.ipify.org`, {
+    // 如果第三方需要鉴权
+    signal: AbortSignal.timeout(8000), // 超时保护（Node 18+）
+    cache: "no-store", // 每次都去源站拿（也可改成 'force-cache'）
+  });
+
+  const ip = await res.text();
+
+  console.log(ip, "response");
+
+  posts = {
+    ip,
+  };
+} catch (error) {
+  console.log(error, "111");
+}
+---
+
+<BaseLayout {title}>
+  <h1>{Astro.site}</h1>
+  {process.env.BOSS}111
+  <h1>服务端渲染的ip{posts.ip}</h1>
+  <h1 class="text-3xl font-bold mb-2">{t(locale, "welcome")}</h1>
+  <p class="mb-4">{t(locale, "intro")}</p>
+  <div class="my-6">
+    <SidebarToggle client:only />
+    <QueryDemo client:load />
+  </div>
+  <p class="mt-6">
+    <a href="/zh/about/" class="text-blue-600 hover:underline"
+      >{t(locale, "about")}</a
+    >
+  </p>
+  <Image src={cat} alt="Hero" widths={[400, 800, 1200]} />
+</BaseLayout>
