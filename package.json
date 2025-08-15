@@ -8,7 +8,7 @@
     "test": "APP_ENV=test astro dev",
     "rc": " APP_ENV=rc astro dev",
     "prod": "APP_ENV=prod astro dev",
-    "build": "APP_ENV=dev astro build",
+    "build:dev": "APP_ENV=dev astro build",
     "build:test": "APP_ENV=test astro build",
     "build:rc": "APP_ENV=rc astro build",
     "build:prod": "APP_ENV=prod astro build",
