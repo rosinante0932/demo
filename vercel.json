@@ -1,0 +1,72 @@
+{
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "framework": "astro",
+    "buildCommand": "node scripts/select-build.js",
+    "regions": [
+        "hkg1",
+        "sin1"
+    ],
+    "functions": {
+        "api/**": {
+            "runtime": "nodejs20.x",
+            "memory": 1024,
+            "maxDuration": 10,
+            "regions": [
+                "hkg1",
+                "sin1"
+            ]
+        }
+    },
+    "headers": [
+        {
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "X-Content-Type-Options",
+                    "value": "nosniff"
+                },
+                {
+                    "key": "Referrer-Policy",
+                    "value": "strict-origin-when-cross-origin"
+                },
+                {
+                    "key": "Strict-Transport-Security",
+                    "value": "max-age=31536000; includeSubDomains; preload"
+                }
+            ]
+        },
+        {
+            "source": "/(_astro|assets)/(.*)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=31536000, immutable"
+                }
+            ]
+        },
+        {
+            "source": "/(.*\\.(ico|png|jpg|jpeg|gif|svg|webp|avif|css|js))",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=31536000, immutable"
+                }
+            ]
+        }
+    ],
+    "rewrites": [
+        {
+            "source": "/robots.txt",
+            "destination": "/api/robots"
+        }
+    ],
+    "redirects": [
+        {
+            "source": "/home",
+            "destination": "/",
+            "permanent": true
+        }
+    ],
+    "trailingSlash": false,
+    "cleanUrls": true
+}

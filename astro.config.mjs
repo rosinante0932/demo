@@ -4,10 +4,11 @@ import node from '@astrojs/node'
 import sitemap from '@astrojs/sitemap'
 import UnoCSS from 'unocss/astro'
 import * as dotenv from 'dotenv'
+import vercel from '@astrojs/vercel';
 
 const APP_ENV = process.env.APP_ENV || 'dev'
 
-console.log(APP_ENV,'1111')
+console.log(APP_ENV, '1111')
 
 const FILE_MAP = {
   dev: '.env.dev',
@@ -26,7 +27,18 @@ const SRC = fileURLToPath(new URL('./src', import.meta.url))
 export default defineConfig({
   site: SITE_URL,
   output: 'server',
-  adapter: node({ mode: 'standalone' }),
+  // adapter: node({ mode: 'standalone' }), // 不要 nodejs
+  adapter: vercel({
+    // 可选功能示例：
+    // isr: true,  // 平台能力；是否使用在页面里 export const revalidate 决定
+    imagesConfig: {
+      formats: ['image/avif', 'image/webp'],
+      sizes: [320, 640, 960, 1200, 1600, 2048],
+      // domains: ['img.example.com'],         // 如需远程域名
+      minimumCacheTTL: 60
+    },
+    webAnalytics: { enabled: true }
+  }),
   integrations: [
     vue({ appEntrypoint: '/src/pages/_app.ts' }),
     UnoCSS({ injectReset: true, dark: 'class' }),
