@@ -2,18 +2,6 @@
     "$schema": "https://openapi.vercel.sh/vercel.json",
     "framework": "astro",
     "buildCommand": "node scripts/select-build.js",
-    "functions": {
-        "**": {
-            "runtime": "nodejs20.x",
-            "memory": 1024,
-            "maxDuration": 10
-        },
-        "api/**": {
-            "runtime": "nodejs20.x",
-            "memory": 1024,
-            "maxDuration": 10
-        }
-    },
     "headers": [
         {
             "source": "/(.*)",
