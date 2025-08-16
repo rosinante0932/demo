@@ -27,6 +27,7 @@ export async function onRequest(ctx: APIContext, next: MiddlewareNext) {
     // console.log(path, 'path1')
 
     console.log(referer, 'referer')
+    ctx.locals.referer = referer
 
     return next()
 }

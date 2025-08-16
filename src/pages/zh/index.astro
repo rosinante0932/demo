@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import QueryDemo from "@/components/QueryDemo.vue";
+import RefererDemo from "@/components/RefererDemo.vue";
 import { t, resolveLocale, type Locale } from "../../lib/i18n";
 import SidebarToggle from "@/components/SidebarToggle.vue";
 import cat from "@/assets/cat.png";
@@ -9,12 +10,14 @@ import { Image } from "astro:assets";
 const locale: Locale = resolveLocale(Astro.currentLocale);
 const title = t(locale, "welcome");
 const clientIp = Astro.locals.ip;
+const referer = Astro.locals.referer;
 let posts = {
   ip: "192.168.0.1",
   clientIp: clientIp,
+  referer,
 };
 
-console.log(posts,'posts')
+console.log(posts, "posts");
 
 try {
   const res = await fetch(`https://api.ipify.org`, {
@@ -41,16 +44,17 @@ try {
   {process.env.BOSS}111
   <h1>服务端的ip：{posts.ip}</h1>
   <h1>客户端的ip：{posts.clientIp}</h1>
+  <h1>从哪里跳过来的：{posts.referer}</h1>
+  <a href={posts.referer} class="text-red-400 py-10">跳转一下</a>
   <h1 class="text-3xl font-bold mb-2">{t(locale, "welcome")}</h1>
   <p class="mb-4">{t(locale, "intro")}</p>
   <div class="my-6">
+    <RefererDemo client:only />
     <SidebarToggle client:only />
     <QueryDemo client:load />
   </div>
   <p class="mt-6">
-    <a href="/zh/about/" class="text-blue-600 hover:underline"
-      >{t(locale, "about")}</a
-    >
+    <a href="/zh/about/" class="text-blue-600 hover:underline">{t(locale, "about")}</a>
   </p>
   <Image src={cat} alt="Hero" widths={[400, 800, 1200]} />
 </BaseLayout>
