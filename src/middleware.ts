@@ -5,8 +5,8 @@ export async function onRequest(ctx: APIContext, next: MiddlewareNext) {
     getIp(ctx)
 
     const referer =
-        ctx.request.headers.get('referer') || // 正确拼写
-        ctx.request.headers.get('referrer') || // 少数代理会用这个
+        ctx.request.headers.get('Referer') || // 正确拼写
+        ctx.request.headers.get('Referrer') || // 少数代理会用这个
         '';
 
     console.log(referer, 'referer')
