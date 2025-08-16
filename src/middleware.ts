@@ -22,7 +22,7 @@ export async function onRequest(ctx: APIContext, next: MiddlewareNext) {
 
     console.log(origin, 'origin')
 
-    console.log(path, 'path')
+    console.log(path, 'path1')
 
     console.log(referer, 'referer')
 
