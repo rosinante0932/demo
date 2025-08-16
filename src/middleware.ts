@@ -10,9 +10,9 @@ export async function onRequest(ctx: APIContext, next: MiddlewareNext) {
         '';
 
     const ref = ctx.request.headers.get('referer') || '';
-    const u = new URL(ref);
-    const origin = u.origin;   // https://example.com
-    const path = u.pathname; // 跨域通常是 '/'
+    // const u = new URL(ref);
+    // const origin = u.origin;   // https://example.com
+    // const path = u.pathname; // 跨域通常是 '/'
 
     const ref1 = ctx.request.headers.get('Referer')
 
@@ -20,9 +20,11 @@ export async function onRequest(ctx: APIContext, next: MiddlewareNext) {
 
     console.log(ref1, 'ref1')
 
-    console.log(origin, 'origin')
+    console.log(ref, 'ref')
 
-    console.log(path, 'path1')
+    // console.log(origin, 'origin')
+
+    // console.log(path, 'path1')
 
     console.log(referer, 'referer')
 
