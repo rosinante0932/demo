@@ -1,15 +1,6 @@
 import { execSync } from 'node:child_process';
 import * as dotenv from 'dotenv'
 
-const FILE_MAP = {
-  dev: '.env.dev',
-  test: '.env.test',
-  rc: '.env.rc',
-  prod: '.env.prod'
-}
-
-dotenv.config({ path: FILE_MAP[APP_ENV] })
-
 const vercelEnv = process.env.VERCEL_ENV ?? 'production';     // development | preview | production
 const branch = (process.env.VERCEL_GIT_BRANCH ?? '').toLowerCase();
 
@@ -25,7 +16,16 @@ if (vercelEnv === 'development') {
   mode = 'prod';
 }
 
-process.env.APP_ENV = process.env.APP_ENV || mode;
+const APP_ENV = process.env.APP_ENV = process.env.APP_ENV || mode;
+
+const FILE_MAP = {
+  dev: '.env.dev',
+  test: '.env.test',
+  rc: '.env.rc',
+  prod: '.env.prod'
+}
+
+dotenv.config({ path: FILE_MAP[APP_ENV] })
 
 console.log(
   `[build] VERCEL_ENV=${vercelEnv} branch=${branch} -> astro --mode ${mode} (APP_ENV=${process.env.APP_ENV})`
