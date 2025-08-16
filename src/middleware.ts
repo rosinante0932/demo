@@ -1,16 +1,15 @@
 import type { APIContext, MiddlewareNext } from 'astro'
+import { getIp } from './utils/common'
 export async function onRequest(ctx: APIContext, next: MiddlewareNext) {
     console.log(process.env.BOSS, '222')
-    const ip =
-        ctx.clientAddress ??
-        ctx.request.headers.get('x-forwarded-for')?.split(',')[0].trim() ??
-        ctx.request.headers.get('x-real-ip') ??
-        ctx.request.headers.get('cf-connecting-ip') ??
-        'unknown';
+    getIp(ctx)
 
-    console.log(ip)
+    const referer =
+        ctx.request.headers.get('referer') || // 正确拼写
+        ctx.request.headers.get('referrer') || // 少数代理会用这个
+        '';
 
-    ctx.locals.ip = ip;
+    console.log(referer, 'referer')
 
     return next()
 }
