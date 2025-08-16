@@ -1,7 +1,7 @@
 {
     "$schema": "https://openapi.vercel.sh/vercel.json",
     "framework": "astro",
-    "buildCommand": "node scripts/select-build.mjs",
+    "buildCommand": "astro build",
     "headers": [
         {
             "source": "/(.*)",

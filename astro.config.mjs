@@ -3,6 +3,7 @@ import vue from '@astrojs/vue'
 import sitemap from '@astrojs/sitemap'
 import UnoCSS from 'unocss/astro'
 import vercel from '@astrojs/vercel';
+import AutoImport from 'unplugin-auto-import/vite'
 
 const APP_ENV = process.env.APP_ENV || 'dev'
 
@@ -52,6 +53,27 @@ export default defineConfig({
         '@': SRC,
         '~': SRC
       }
-    }
+    },
+    plugins: [
+      AutoImport({
+        // 这里既可以导入函数，也可以导入“type 类型”
+        imports: [
+          // 例：如果你也想自动引入 vue 的 ref、computed 等
+          'vue',
+          'pinia',
+          {
+            '@tanstack/vue-query': [
+              'useQuery',
+              'useMutation',
+              'useQueryClient',
+              'QueryClient',
+              'VueQueryPlugin',
+            ],
+          },
+        ],
+        dts: 'src/auto-imports.d.ts',         // 生成声明文件，给 TS 用
+        eslintrc: { enabled: true },          // 可选：生成 ESLint 配置，避免 “未定义” 报错
+      }),
+    ],
   }
 })

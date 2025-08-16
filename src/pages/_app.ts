@@ -1,7 +1,6 @@
 import type { App } from 'vue'
-import { createPinia } from 'pinia'
+
 import piniaPersist from 'pinia-plugin-persistedstate'
-import { VueQueryPlugin, QueryClient } from '@tanstack/vue-query'
 import type { VueQueryPluginOptions } from '@tanstack/vue-query' 
 
 export default (app: App) => {
