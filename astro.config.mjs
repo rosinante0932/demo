@@ -1,23 +1,12 @@
 import { defineConfig } from 'astro/config'
 import vue from '@astrojs/vue'
-import node from '@astrojs/node'
 import sitemap from '@astrojs/sitemap'
 import UnoCSS from 'unocss/astro'
-import * as dotenv from 'dotenv'
 import vercel from '@astrojs/vercel';
 
 const APP_ENV = process.env.APP_ENV || 'dev'
 
 console.log(APP_ENV, '1111')
-
-const FILE_MAP = {
-  dev: '.env.dev',
-  test: '.env.test',
-  rc: '.env.rc',
-  prod: '.env.prod'
-}
-
-dotenv.config({ path: FILE_MAP[APP_ENV] })
 
 const SITE_URL = process.env.SITE_URL || 'https://example.com'
 
