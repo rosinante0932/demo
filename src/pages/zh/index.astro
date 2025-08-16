@@ -8,9 +8,14 @@ import { Image } from "astro:assets";
 
 const locale: Locale = resolveLocale(Astro.currentLocale);
 const title = t(locale, "welcome");
+const clientIp = Astro.locals.ip;
 let posts = {
   ip: "192.168.0.1",
+  clientIp: clientIp,
 };
+
+console.log(posts,'posts')
+
 try {
   const res = await fetch(`https://api.ipify.org`, {
     // 如果第三方需要鉴权
@@ -23,6 +28,7 @@ try {
   console.log(ip, "response");
 
   posts = {
+    ...posts,
     ip,
   };
 } catch (error) {
@@ -33,7 +39,8 @@ try {
 <BaseLayout {title}>
   <h1>{Astro.site}</h1>
   {process.env.BOSS}111
-  <h1>服务端渲染的ip{posts.ip}</h1>
+  <h1>服务端的ip：{posts.ip}</h1>
+  <h1>客户端的ip：{posts.clientIp}</h1>
   <h1 class="text-3xl font-bold mb-2">{t(locale, "welcome")}</h1>
   <p class="mb-4">{t(locale, "intro")}</p>
   <div class="my-6">
