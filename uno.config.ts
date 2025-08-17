@@ -1,4 +1,4 @@
-import { defineConfig, presetUno, presetAttributify, presetIcons, transformerVariantGroup, transformerDirectives } from 'unocss'
+import { defineConfig, presetMini, presetAttributify, presetIcons, transformerVariantGroup, transformerDirectives } from 'unocss'
 
 export default defineConfig({
   shortcuts: {
@@ -35,7 +35,7 @@ export default defineConfig({
     },
   },
   presets: [
-    presetUno({ theme: { colors: {} } }),
+    presetMini({ theme: { colors: {} } }),
     presetAttributify(),
     presetIcons()
   ],
