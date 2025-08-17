@@ -75,7 +75,9 @@ try {
       <p class="pt-10 text-xl" set:html={restrictionHtml} />
       <div class="pt-5">
         <button class="btn-primary"> {t(locale, "联系客服")} </button>
-        <button class="btn-info ml-4"> {t(locale, "尝试重新访问")} </button>
+        <a href={posts.referer}>
+          <button class="btn-info ml-4"> {t(locale, "尝试重新访问")} </button>
+        </a>
       </div>
     </div>
   </div>
