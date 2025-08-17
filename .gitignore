@@ -76,4 +76,6 @@ yarn.lock
 auto-imports.d.ts
 .astro
 
-/dist
+dist
+
+.vercel

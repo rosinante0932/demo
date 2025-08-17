@@ -31,8 +31,9 @@ export default defineConfig({
   }),
   integrations: [
     vue({ appEntrypoint: '/src/pages/_app.ts' }),
-    UnoCSS({ 
-      injectReset: true, dark: 'class' }),
+    UnoCSS({
+      injectReset: true, //dark: 'class' 
+    }),
     sitemap({
       i18n: {
         defaultLocale: 'zh',
