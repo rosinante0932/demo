@@ -1,14 +1,11 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import QueryDemo from "@/components/QueryDemo.vue";
-import RefererDemo from "@/components/RefererDemo.vue";
 import { t, resolveLocale, type Locale } from "../../lib/i18n";
-import SidebarToggle from "@/components/SidebarToggle.vue";
-import cat from "@/assets/cat.png";
 import { Image } from "astro:assets";
+import { highlightPlaceholders } from "@/utils/common";
 
 const locale: Locale = resolveLocale(Astro.currentLocale);
-const title = t(locale, "welcome");
+const title = t(locale, "访问受限制");
 const clientIp = Astro.locals.ip;
 const referer = Astro.locals.referer;
 let posts = {
@@ -17,7 +14,14 @@ let posts = {
   referer,
 };
 
-console.log(posts, "posts");
+const restrictionHtml = highlightPlaceholders(
+  t(
+    locale,
+    "您所在的地区已被禁止访问我们的网站，给您造成的不便，敬请见谅。如有任何疑问，请联系24小时在线客服，我们将竭诚为您服务。",
+  ),
+);
+
+console.log(restrictionHtml, "restrictionHtml");
 
 try {
   const res = await fetch(`https://api.ipify.org`, {
@@ -35,26 +39,99 @@ try {
     ip,
   };
 } catch (error) {
-  console.log(error, "111");
+  console.log(error, "ip 获取错误");
 }
 ---
 
 <BaseLayout {title}>
-  <h1>{Astro.site}</h1>
-  {process.env.BOSS}111
-  <h1>服务端的ip：{posts.ip}</h1>
-  <h1>客户端的ip：{posts.clientIp}</h1>
-  <h1>从哪里跳过来的：{posts.referer}</h1>
-  <a href={posts.referer} class="text-red-400 py-10">跳转一下</a>
-  <h1 class="text-3xl font-bold mb-2">{t(locale, "welcome")}</h1>
-  <p class="mb-4">{t(locale, "intro")}</p>
-  <div class="my-6">
-    <RefererDemo client:only />
-    <SidebarToggle client:only />
-    <QueryDemo client:load />
+  <!-- pc -->
+  <input type="hidden" value={`服务端的ip: ${posts.ip}`} />
+  <input type="hidden" value={`客户端的ip: ${posts.clientIp}`} />
+  <input type="hidden" value={`从哪里跳过来的: ${posts.referer}`} />
+  <input type="hidden" value={`BOSS: ${process.env.BOSS}`} />
+  <div
+    class="mt-30 xs:hidden sm:hidden md:hidden lg:hidden xl:grid h-[615px] md:mx-0 lg:mx-10 xl:mx-20 2xl:mx-50 grid-cols-[1fr_410px] gap-10"
+  >
+    <div
+      class="bg-[url('~/assets/svg/403.svg')] bg-cover bg-bottom bg-contain bg-no-repeat"
+    >
+    </div>
+    <div class="flex flex-col justify-between pb-22">
+      <h1>
+        <img
+          width="115"
+          height="46"
+          loading="eager"
+          decoding="async"
+          src={`/assets/svg/logo-${locale === "zh" ? "zh" : locale === "en" ? "en" : "en"}.svg`}
+          alt="403 logo"
+        />
+      </h1>
+      <h2 class="text-[#11254E] text-4xl font-600">
+        {t(locale, "访问受限制")}
+      </h2>
+      <h3>
+        {t(locale, "您的IP所在地")}：<span class="text-[#2996F5]"
+          >Shanghai  China</span
+        >
+      </h3>
+      <p class="pt-10 text-xl" set:html={restrictionHtml} />
+      <div class="pt-5">
+        <button class="btn-primary"> {t(locale, "联系客服")} </button>
+        <button class="btn-info"> {t(locale, "尝试重新访问")} </button>
+      </div>
+    </div>
   </div>
-  <p class="mt-6">
-    <a href="/zh/about/" class="text-blue-600 hover:underline">{t(locale, "about")}</a>
-  </p>
-  <Image src={cat} alt="Hero" widths={[400, 800, 1200]} />
+  <!-- h5 -->
+  <div class="lg:grid xl:hidden">
+    <h2 class="text-center text-2xl text-[#011E42] font-semibold">
+      {t(locale, "访问受限制")}
+    </h2>
+    <h3 class="text-center text-[#969696] mt-2">
+      {t(locale, "您的IP所在地")}：<span class="text-[#2996F5]"
+        >Shanghai  China
+      </span>
+    </h3>
+    <Image
+      src={import("~/assets/svg/403.svg")}
+      alt="403 logo"
+      class="h-[235px] m-auto mt-7.5"
+    />
+    <p
+      class="text-xs/5 text-[#011E42] text-center"
+      set:html={restrictionHtml}
+    />
+
+    <button
+      class="inline-flex items-center justify-center mt-7.5
+      h-[44px] w-[100%] gap-[9.69px]
+      rounded-[23.25px]
+      text-white text-[16px] font-600
+      bg-gradient-to-r from-[#339DFF] to-[#1649FF]
+      shadow-[0_0_16px_rgba(51,157,255,0.2)]
+      transition-all-300 hover:opacity-90 active:scale-98"
+      >{t(locale, "联系客服")}</button
+    >
+
+    <div
+      class="inline-block w-[100%]
+    p-[.1px] rounded-[23.25px]
+    bg-[linear-gradient(90deg,#339DFF_0%,#1649FF_100%)]
+    shadow-[0_0_16px_rgba(51,157,255,0.2)] mt-4"
+    >
+      <!-- 内层：按钮主体 + 实线蓝色描边（inset 1px） -->
+      <a href={posts.referer}>
+        <button
+          class="h-[44px] px-6 w-[100%]
+      rounded-[23.25px]
+      inline-flex items-center justify-center gap-[9.69px]
+      bg-white text-[#1649FF] text-[16px] font-600
+      shadow-[inset_0_0_0_1px_#1649FF]
+      transition-all-300 hover:bg-white/100 active:scale-98"
+        >
+          {t(locale, "尝试重新访问")}
+        </button>
+      </a>
+    </div>
+  </div>
 </BaseLayout>

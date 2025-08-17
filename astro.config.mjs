@@ -31,16 +31,17 @@ export default defineConfig({
   }),
   integrations: [
     vue({ appEntrypoint: '/src/pages/_app.ts' }),
-    UnoCSS({ injectReset: true, dark: 'class' }),
+    UnoCSS({ 
+      injectReset: true, dark: 'class' }),
     sitemap({
       i18n: {
         defaultLocale: 'zh',
-        locales: { zh: 'zh-CN', en: 'en', th: 'th' }
+        locales: { zh: 'zh-CN', en: 'en', th: 'th', km: 'km', ko: 'ko', vi: 'vi' }
       }
     })
   ],
   i18n: {
-    locales: ['zh', 'en', 'th'],
+    locales: ['zh', 'en', 'th', 'km', 'ko', 'vi'],
     defaultLocale: 'zh',
     routing: {
       strategy: 'pathname',        // ✅ 改为 pathname
