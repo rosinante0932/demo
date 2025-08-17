@@ -50,13 +50,10 @@ try {
   <input type="hidden" value={`从哪里跳过来的: ${posts.referer}`} />
   <input type="hidden" value={`BOSS: ${process.env.BOSS}`} />
   <div
-    class="mt-30 xs:hidden sm:hidden md:hidden lg:hidden xl:grid h-[615px] md:mx-0 lg:mx-10 xl:mx-20 2xl:mx-50 grid-cols-[1fr_410px] gap-10"
+    class="mt-30 xs:hidden sm:hidden md:hidden lg:hidden xl:flex h-[615px] items-center justify-center flex gap-10"
   >
-    <div
-      class="bg-[url('~/assets/svg/403.svg')] bg-cover bg-bottom bg-contain bg-no-repeat"
-    >
-    </div>
-    <div class="flex flex-col justify-between pb-22">
+    <Image src={import("~/assets/svg/403.svg")} alt="" />
+    <div class="h-[100%] flex flex-col max-w-[410px] justify-between pb-22">
       <h1>
         <img
           width="115"
@@ -78,7 +75,7 @@ try {
       <p class="pt-10 text-xl" set:html={restrictionHtml} />
       <div class="pt-5">
         <button class="btn-primary"> {t(locale, "联系客服")} </button>
-        <button class="btn-info"> {t(locale, "尝试重新访问")} </button>
+        <button class="btn-info ml-4"> {t(locale, "尝试重新访问")} </button>
       </div>
     </div>
   </div>

@@ -7,7 +7,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 
 const APP_ENV = process.env.APP_ENV || 'dev'
 
-console.log(APP_ENV, '1111')
+console.log(APP_ENV, '当前环境')
 
 const SITE_URL = process.env.SITE_URL || 'https://example.com'
 
